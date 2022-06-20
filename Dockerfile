@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER janakiramm@gmail.com
-RUN apt-get update && apt-get install -y supervisor nodejs npm
+RUN apt-get update && apt-get install -y supervisor curl wget
 RUN curl -s https://deb.nodesource.com/setup_16.x | sudo bash
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 #USER root
