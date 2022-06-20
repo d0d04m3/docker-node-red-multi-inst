@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  mongodb:
+    public: true
+    container_name: mongodb
+    image: docker.io/bitnami/mongodb:5.0
+    environment:
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_SYSTEM_LOG_VERBOSITY=${MONGODB_SYSTEM_LOG_VERBOSITY}
+      - MONGODB_DISABLE_SYSTEM_LOG=${MONGODB_DISABLE_SYSTEM_LOG}
+    ports:
+      - "27017:27017"
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'  
+  node-red:
+    public: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TZ=Asia/Tokyo
+      - DB_HOST=mongodb://mongodb:27017
+      - secret=dev
+    ports:
+      - 1880-1884:1880-1884
+    volumes:
+      - $(PWD)/etc/supervisor:/etc/supervisor
+      - $(PWD)/var/log/supervisor:/var/log/supervisor
+      - $(PWD)/rules:/rules
+    links:
+      - mongodb
+
+
+volumes:
+  Drive:
+    size: 2Gi
+  mongodb_data:
+    driver: local
+    size: 2Gi
