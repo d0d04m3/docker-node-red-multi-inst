@@ -1,7 +1,12 @@
 FROM ubuntu:14.04
 MAINTAINER janakiramm@gmail.com
-RUN apt-get update && apt-get install -y supervisor curl wget
-RUN curl -s https://deb.nodesource.com/setup_16.x | sudo bash
+RUN apt-get update && install -y git-core curl build-essential openssl libssl-dev supervisor \
+ && git clone https://github.com/nodejs/node.git \
+ && cd node \
+ && ./configure \
+ && make \
+ && sudo make install
+ 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 #USER root
 RUN sudo npm install -g --unsafe-perm node-red
