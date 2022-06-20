@@ -1,3 +1,4 @@
+FROM ubuntu:22.04
 RUN apt-get update && install -y git-core curl build-essential openssl libssl-dev supervisor \
  && git clone https://github.com/nodejs/node.git \
  && cd node \
