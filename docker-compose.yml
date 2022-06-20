@@ -32,9 +32,9 @@ services:
     ports:
       - 1880-1884:1880-1884
     volumes:
-      - $(PWD)/etc/supervisor:/etc/supervisor
-      - $(PWD)/var/log/supervisor:/var/log/supervisor
-      - $(PWD)/rules:/rules
+      - ./etc/supervisor:/etc/supervisor
+      - ./var/log/supervisor:/var/log/supervisor
+      - ./rules:/rules
     links:
       - mongodb
 
